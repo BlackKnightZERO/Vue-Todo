@@ -12,8 +12,7 @@
       :key="todo.id"
       :todo="todo"
       :index="index"
-      @removedTodo="removeTodo"
-      @finishedEdit="finishedEdit"
+      
       :checkAll="!anyRemaining"
       >
       </todo-item>
@@ -129,6 +128,10 @@ export default {
       finishedEdit(data){
           this.todos.splice(data.index, 1, data.todo)
       },
+  },
+  created(){
+      this.$eventHub.$on('removedTodo', (index)=>this.removeTodo(index))
+      this.$eventHub.$on('finishedEdit', (data)=>this.finishedEdit(data))
   }
 }
 </script>
